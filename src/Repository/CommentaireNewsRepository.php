@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Commentairenews;
+use App\Entity\CommentaireNews;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Commentairenews[]    findAll()
  * @method Commentairenews[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CommentairenewsRepository extends ServiceEntityRepository
+class CommentaireNewsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
