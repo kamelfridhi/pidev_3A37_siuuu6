@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\CommentaireNews;
+use App\Entity\Commentairenews;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<CommentaireNews>
+ * @extends ServiceEntityRepository<Commentairenews>
  *
- * @method CommentaireNews|null find($id, $lockMode = null, $lockVersion = null)
- * @method CommentaireNews|null findOneBy(array $criteria, array $orderBy = null)
- * @method CommentaireNews[]    findAll()
- * @method CommentaireNews[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Commentairenews|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Commentairenews|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Commentairenews[]    findAll()
+ * @method Commentairenews[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CommentaireNewsRepository extends ServiceEntityRepository
+class CommentairenewsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CommentaireNews::class);
+        parent::__construct($registry, Commentairenews::class);
     }
 
-    public function save(CommentaireNews $entity, bool $flush = false): void
+    public function save(Commentairenews $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class CommentaireNewsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(CommentaireNews $entity, bool $flush = false): void
+    public function remove(Commentairenews $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class CommentaireNewsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return CommentaireNews[] Returns an array of CommentaireNews objects
+//     * @return Commentairenews[] Returns an array of Commentairenews objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class CommentaireNewsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?CommentaireNews
+//    public function findOneBySomeField($value): ?Commentairenews
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

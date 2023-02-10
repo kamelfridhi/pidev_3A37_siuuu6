@@ -2,48 +2,63 @@
 
 namespace App\Entity;
 
-use App\Repository\CommentaireNewsRepository;
+use App\Repository\CommentairenewsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CommentaireNewsRepository::class)]
-class CommentaireNews
+#[ORM\Entity(repositoryClass: CommentairenewsRepository::class)]
+class Commentairenews
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $idNews = null;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?news $newsid = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?user $userid = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    private ?string $descrition = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdNews(): ?int
+    public function getNewsid(): ?news
     {
-        return $this->idNews;
+        return $this->newsid;
     }
 
-    public function setIdNews(int $idNews): self
+    public function setNewsid(?news $newsid): self
     {
-        $this->idNews = $idNews;
+        $this->newsid = $newsid;
 
         return $this;
     }
 
-    public function getdescription(): ?string
+    public function getUserid(): ?user
     {
-        return $this->description;
+        return $this->userid;
     }
 
-    public function setdescription(string $description): self
+    public function setUserid(?user $userid): self
     {
-        $this->description = $description;
+        $this->userid = $userid;
+
+        return $this;
+    }
+
+    public function getDescrition(): ?string
+    {
+        return $this->descrition;
+    }
+
+    public function setDescrition(string $descrition): self
+    {
+        $this->descrition = $descrition;
 
         return $this;
     }
