@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\ReviewJeux;
+use App\Entity\Reviewuserjeux;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ReviewJeux>
+ * @extends ServiceEntityRepository<Reviewuserjeux>
  *
- * @method ReviewJeux|null find($id, $lockMode = null, $lockVersion = null)
- * @method ReviewJeux|null findOneBy(array $criteria, array $orderBy = null)
- * @method ReviewJeux[]    findAll()
- * @method ReviewJeux[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Reviewuserjeux|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Reviewuserjeux|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Reviewuserjeux[]    findAll()
+ * @method Reviewuserjeux[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ReviewJeuxRepository extends ServiceEntityRepository
+class ReviewuserjeuxRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ReviewJeux::class);
+        parent::__construct($registry, Reviewuserjeux::class);
     }
 
-    public function save(ReviewJeux $entity, bool $flush = false): void
+    public function save(Reviewuserjeux $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ReviewJeuxRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(ReviewJeux $entity, bool $flush = false): void
+    public function remove(Reviewuserjeux $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ReviewJeuxRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return ReviewJeux[] Returns an array of ReviewJeux objects
+//     * @return Reviewuserjeux[] Returns an array of Reviewuserjeux objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ReviewJeuxRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ReviewJeux
+//    public function findOneBySomeField($value): ?Reviewuserjeux
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')

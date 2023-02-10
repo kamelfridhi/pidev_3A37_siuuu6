@@ -29,6 +29,14 @@ class Jeux
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+
+    /**
+     * ManyToMany relation User----Jeux
+     * #[ORM\ManyToMany(targetEntity: Jeux::class, mappedBy: 'Jeux')]
+     *private Collection $users;
+     */
+
+
     public function getId(): ?int
     {
         return $this->id;

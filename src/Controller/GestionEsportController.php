@@ -22,6 +22,6 @@ class GestionEsportController extends AbstractController
     {
         return $this->render('Front_Template/welcome.html.twig',[
             'controller_name' => 'GestionEsportController',
-        ]);;
+        ]);
     }
 }
