@@ -16,7 +16,7 @@ class Produit
     #[ORM\Column]
     private ?int $reference = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255)]    //o
     private ?string $prix = null;
 
     #[ORM\Column(length: 255, nullable: true)]
