@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GroupeRepository::class)]
@@ -27,6 +29,18 @@ class Groupe
 
     #[ORM\Column]
     private ?int $nbr_max = null;
+
+    #[ORM\OneToMany(mappedBy: 'idGroupe', targetEntity: Post::class)]
+    private Collection $posts;
+
+    #[ORM\OneToMany(mappedBy: 'idGroupe', targetEntity: GroupeMembre::class)]
+    private Collection $groupeMembres;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+        $this->groupeMembres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +103,66 @@ class Groupe
     public function setNbrMax(int $nbr_max): self
     {
         $this->nbr_max = $nbr_max;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts->add($post);
+            $post->setIdGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getIdGroupe() === $this) {
+                $post->setIdGroupe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GroupeMembre>
+     */
+    public function getGroupeMembres(): Collection
+    {
+        return $this->groupeMembres;
+    }
+
+    public function addGroupeMembre(GroupeMembre $groupeMembre): self
+    {
+        if (!$this->groupeMembres->contains($groupeMembre)) {
+            $this->groupeMembres->add($groupeMembre);
+            $groupeMembre->setIdGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupeMembre(GroupeMembre $groupeMembre): self
+    {
+        if ($this->groupeMembres->removeElement($groupeMembre)) {
+            // set the owning side to null (unless already changed)
+            if ($groupeMembre->getIdGroupe() === $this) {
+                $groupeMembre->setIdGroupe(null);
+            }
+        }
 
         return $this;
     }
