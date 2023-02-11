@@ -20,9 +20,17 @@ class Gamer
     #[ORM\OneToMany(mappedBy: 'id_gamer', targetEntity: HistoriqueAchat::class)]
     private Collection $historiqueAchats;
 
+    #[ORM\OneToMany(mappedBy: 'idGamer', targetEntity: Planning::class)]
+    private Collection $plannings;
+
+    #[ORM\OneToMany(mappedBy: 'idGamer', targetEntity: UserCourses::class)]
+    private Collection $userCourses;
+
     public function __construct()
     {
         $this->historiqueAchats = new ArrayCollection();
+        $this->plannings = new ArrayCollection();
+        $this->userCourses = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -65,6 +73,66 @@ class Gamer
             // set the owning side to null (unless already changed)
             if ($historiqueAchat->getIdGamer() === $this) {
                 $historiqueAchat->setIdGamer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Planning>
+     */
+    public function getPlannings(): Collection
+    {
+        return $this->plannings;
+    }
+
+    public function addPlanning(Planning $planning): self
+    {
+        if (!$this->plannings->contains($planning)) {
+            $this->plannings->add($planning);
+            $planning->setIdGamer($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanning(Planning $planning): self
+    {
+        if ($this->plannings->removeElement($planning)) {
+            // set the owning side to null (unless already changed)
+            if ($planning->getIdGamer() === $this) {
+                $planning->setIdGamer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserCourses>
+     */
+    public function getUserCourses(): Collection
+    {
+        return $this->userCourses;
+    }
+
+    public function addUserCourse(UserCourses $userCourse): self
+    {
+        if (!$this->userCourses->contains($userCourse)) {
+            $this->userCourses->add($userCourse);
+            $userCourse->setIdGamer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCourse(UserCourses $userCourse): self
+    {
+        if ($this->userCourses->removeElement($userCourse)) {
+            // set the owning side to null (unless already changed)
+            if ($userCourse->getIdGamer() === $this) {
+                $userCourse->setIdGamer(null);
             }
         }
 
