@@ -22,8 +22,6 @@ class Produit
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?int $idCategorie = null;
 
     public function getId(): ?int
     {
@@ -66,15 +64,5 @@ class Produit
         return $this;
     }
 
-    public function getIdCategorie(): ?int
-    {
-        return $this->idCategorie;
-    }
 
-    public function setIdCategorie(int $idCategorie): self
-    {
-        $this->idCategorie = $idCategorie;
-
-        return $this;
-    }
 }
