@@ -17,12 +17,14 @@ class Gamer
     #[ORM\Column(length: 255)]
     private ?string $tag = null;
 
+
     #[ORM\OneToMany(mappedBy: 'id_gamer', targetEntity: HistoriqueAchat::class)]
     private Collection $historiqueAchats;
 
     public function __construct()
     {
         $this->historiqueAchats = new ArrayCollection();
+
     }
     public function getId(): ?int
     {
@@ -42,6 +44,7 @@ class Gamer
     }
 
     /**
+
      * @return Collection<int, HistoriqueAchat>
      */
     public function getHistoriqueAchats(): Collection
@@ -54,10 +57,12 @@ class Gamer
         if (!$this->historiqueAchats->contains($historiqueAchat)) {
             $this->historiqueAchats->add($historiqueAchat);
             $historiqueAchat->setIdGamer($this);
+
         }
 
         return $this;
     }
+
 
     public function removeHistoriqueAchat(HistoriqueAchat $historiqueAchat): self
     {
@@ -65,6 +70,7 @@ class Gamer
             // set the owning side to null (unless already changed)
             if ($historiqueAchat->getIdGamer() === $this) {
                 $historiqueAchat->setIdGamer(null);
+
             }
         }
 

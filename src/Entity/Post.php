@@ -16,8 +16,7 @@ class Post
     #[ORM\Column]
     private ?int $iduser = null;
 
-    #[ORM\Column]
-    private ?int $idgroupe = null;
+
 
     #[ORM\Column(length: 255)]
     private ?string $nompost = null;
@@ -30,6 +29,9 @@ class Post
 
     #[ORM\Column]
     private ?int $nbr_like = null;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    private ?Groupe $idGroupe = null;
 
     public function getId(): ?int
     {
@@ -48,17 +50,9 @@ class Post
         return $this;
     }
 
-    public function getIdgroupe(): ?int
-    {
-        return $this->idgroupe;
-    }
 
-    public function setIdgroupe(int $idgroupe): self
-    {
-        $this->idgroupe = $idgroupe;
 
-        return $this;
-    }
+
 
     public function getNompost(): ?string
     {

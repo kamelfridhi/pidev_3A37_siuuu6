@@ -15,4 +15,15 @@ class GroupController extends AbstractController
             'controller_name' => 'GroupController',
         ]);
     }
+
+
+    #[Route('/ourgroupe', name: 'our_groupe')]
+    public function affiche(): Response
+    {
+        return $this->render('group/de.html.twig', [
+            'controller_name' => 'GroupController',
+        ]);
+    }
+
+
 }
