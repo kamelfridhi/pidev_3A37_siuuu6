@@ -16,7 +16,7 @@ class GestionEsportController extends AbstractController
         ]);
     }
     /**
-     * @Route("/front", name="home")
+     * @Route("/", name="home")
      */
     public function welcomefront(): Response
     {
