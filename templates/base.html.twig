@@ -42,7 +42,7 @@
     <div class="container">
         <div class="row">
             <div class="col-4 col-sm-3 col-md-2 mr-auto">
-                <a class="navbar-brand logo" href="Front_Template/welcome.html.twig">
+                <a class="navbar-brand logo" href="{{path('home')}}">
                     <img src="{{ asset('front_office/assets/img/logo-gaming.png') }}" alt="Wicodus" class="logo-light mx-auto">
                 </a>
             </div>
@@ -97,12 +97,11 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown dropdown-hover">
-                    <a class="nav-link dropdown-toggle" href="news.html" id="dropdownGaming_community" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Community </a>
+                    <a class="nav-link dropdown-toggle" href="news.html" id="dropdownGaming_community" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">tournoi </a>
                     <div class="dropdown-menu dropdown-menu-dark-lg" aria-labelledby="dropdownGaming_community">
-                        <a class="dropdown-item" href="news.html">Discussions</a>
-                        <a class="dropdown-item" href="news.html">Workshop</a>
-                        <a class="dropdown-item" href="news.html">Market</a>
-                        <a class="dropdown-item" href="news.html">Broadcasts</a>
+                        <a class="dropdown-item" href="{{path('tournoi')}}">tournoi</a>
+                        <a class="dropdown-item" href="{{path('teams')}}">team</a>
+
                     </div>
                 </li>
                 <li class="nav-item">

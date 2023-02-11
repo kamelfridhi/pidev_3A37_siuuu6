@@ -17,12 +17,14 @@ class Gamer
     #[ORM\Column(length: 255)]
     private ?string $tag = null;
 
-    #[ORM\OneToMany(mappedBy: 'idGamer', targetEntity: GroupeMembre::class)]
-    private Collection $groupeMembres;
+
+    #[ORM\OneToMany(mappedBy: 'id_gamer', targetEntity: HistoriqueAchat::class)]
+    private Collection $historiqueAchats;
 
     public function __construct()
     {
-        $this->groupeMembres = new ArrayCollection();
+        $this->historiqueAchats = new ArrayCollection();
+
     }
     public function getId(): ?int
     {
@@ -42,29 +44,33 @@ class Gamer
     }
 
     /**
-     * @return Collection<int, GroupeMembre>
+
+     * @return Collection<int, HistoriqueAchat>
      */
-    public function getGroupeMembres(): Collection
+    public function getHistoriqueAchats(): Collection
     {
-        return $this->groupeMembres;
+        return $this->historiqueAchats;
     }
 
-    public function addGroupeMembre(GroupeMembre $groupeMembre): self
+    public function addHistoriqueAchat(HistoriqueAchat $historiqueAchat): self
     {
-        if (!$this->groupeMembres->contains($groupeMembre)) {
-            $this->groupeMembres->add($groupeMembre);
-            $groupeMembre->setIdGamer($this);
+        if (!$this->historiqueAchats->contains($historiqueAchat)) {
+            $this->historiqueAchats->add($historiqueAchat);
+            $historiqueAchat->setIdGamer($this);
+
         }
 
         return $this;
     }
 
-    public function removeGroupeMembre(GroupeMembre $groupeMembre): self
+
+    public function removeHistoriqueAchat(HistoriqueAchat $historiqueAchat): self
     {
-        if ($this->groupeMembres->removeElement($groupeMembre)) {
+        if ($this->historiqueAchats->removeElement($historiqueAchat)) {
             // set the owning side to null (unless already changed)
-            if ($groupeMembre->getIdGamer() === $this) {
-                $groupeMembre->setIdGamer(null);
+            if ($historiqueAchat->getIdGamer() === $this) {
+                $historiqueAchat->setIdGamer(null);
+
             }
         }
 
