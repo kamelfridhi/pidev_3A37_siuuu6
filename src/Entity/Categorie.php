@@ -14,7 +14,7 @@ class Categorie
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $libelle = null;
+    private ?string $type = null; //
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
@@ -24,14 +24,14 @@ class Categorie
         return $this->id;
     }
 
-    public function getLibelle(): ?string
+    public function gettype(): ?string
     {
-        return $this->libelle;
+        return $this->type;
     }
 
-    public function setLibelle(string $libelle): self
+    public function settype(string $type): self
     {
-        $this->libelle = $libelle;
+        $this->type = $type;
 
         return $this;
     }
