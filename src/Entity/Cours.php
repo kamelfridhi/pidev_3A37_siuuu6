@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CoursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
@@ -27,6 +29,20 @@ class Cours
 
     #[ORM\Column]
     private ?int $prix = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $niveau = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cours')]
+    private ?Coach $idCoach = null;
+
+    #[ORM\OneToMany(mappedBy: 'idCours', targetEntity: UserCourses::class)]
+    private Collection $userCourses;
+
+    public function __construct()
+    {
+        $this->userCourses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +105,60 @@ class Cours
     public function setPrix(int $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?string
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?string $niveau): self
+    {
+        $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    public function getIdCoach(): ?Coach
+    {
+        return $this->idCoach;
+    }
+
+    public function setIdCoach(?Coach $idCoach): self
+    {
+        $this->idCoach = $idCoach;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserCourses>
+     */
+    public function getUserCourses(): Collection
+    {
+        return $this->userCourses;
+    }
+
+    public function addUserCourse(UserCourses $userCourse): self
+    {
+        if (!$this->userCourses->contains($userCourse)) {
+            $this->userCourses->add($userCourse);
+            $userCourse->setIdCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserCourse(UserCourses $userCourse): self
+    {
+        if ($this->userCourses->removeElement($userCourse)) {
+            // set the owning side to null (unless already changed)
+            if ($userCourse->getIdCours() === $this) {
+                $userCourse->setIdCours(null);
+            }
+        }
 
         return $this;
     }
