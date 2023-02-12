@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TeamRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
@@ -21,6 +23,18 @@ class Team
 
     #[ORM\Column]
     private ?int $nb_joueurs = null;
+
+    #[ORM\OneToMany(mappedBy: 'idteam', targetEntity: Classement::class)]
+    private Collection $classements;
+
+    #[ORM\OneToMany(mappedBy: 'idteam', targetEntity: Member::class)]
+    private Collection $members;
+
+    public function __construct()
+    {
+        $this->classements = new ArrayCollection();
+        $this->members = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -59,6 +73,66 @@ class Team
     public function setNbJoueurs(int $nb_joueurs): self
     {
         $this->nb_joueurs = $nb_joueurs;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Classement>
+     */
+    public function getClassements(): Collection
+    {
+        return $this->classements;
+    }
+
+    public function addClassement(Classement $classement): self
+    {
+        if (!$this->classements->contains($classement)) {
+            $this->classements->add($classement);
+            $classement->setIdteam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassement(Classement $classement): self
+    {
+        if ($this->classements->removeElement($classement)) {
+            // set the owning side to null (unless already changed)
+            if ($classement->getIdteam() === $this) {
+                $classement->setIdteam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Member>
+     */
+    public function getMembers(): Collection
+    {
+        return $this->members;
+    }
+
+    public function addMember(Member $member): self
+    {
+        if (!$this->members->contains($member)) {
+            $this->members->add($member);
+            $member->setIdteam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMember(Member $member): self
+    {
+        if ($this->members->removeElement($member)) {
+            // set the owning side to null (unless already changed)
+            if ($member->getIdteam() === $this) {
+                $member->setIdteam(null);
+            }
+        }
 
         return $this;
     }

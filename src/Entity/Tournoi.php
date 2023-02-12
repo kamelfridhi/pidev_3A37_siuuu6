@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TournoiRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TournoiRepository::class)]
@@ -18,6 +20,14 @@ class Tournoi
 
     #[ORM\Column]
     private ?int $nb_joueur_team = null;
+
+    #[ORM\OneToMany(mappedBy: 'idtournoi', targetEntity: Classement::class)]
+    private Collection $classements;
+
+    public function __construct()
+    {
+        $this->classements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +54,36 @@ class Tournoi
     public function setNbJoueurTeam(int $nb_joueur_team): self
     {
         $this->nb_joueur_team = $nb_joueur_team;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Classement>
+     */
+    public function getClassements(): Collection
+    {
+        return $this->classements;
+    }
+
+    public function addClassement(Classement $classement): self
+    {
+        if (!$this->classements->contains($classement)) {
+            $this->classements->add($classement);
+            $classement->setIdtournoi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassement(Classement $classement): self
+    {
+        if ($this->classements->removeElement($classement)) {
+            // set the owning side to null (unless already changed)
+            if ($classement->getIdtournoi() === $this) {
+                $classement->setIdtournoi(null);
+            }
+        }
 
         return $this;
     }

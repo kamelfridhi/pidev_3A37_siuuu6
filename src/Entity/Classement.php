@@ -14,42 +14,20 @@ class Classement
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $idTournoi = null;
-
-    #[ORM\Column]
-    private ?int $idTeam = null;
-
-    #[ORM\Column]
     private ?float $score = null;
+
+    #[ORM\ManyToOne(inversedBy: 'classements')]
+    private ?Tournoi $idtournoi = null;
+
+    #[ORM\ManyToOne(inversedBy: 'classements')]
+    private ?Team $idteam = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdTournoi(): ?int
-    {
-        return $this->idTournoi;
-    }
 
-    public function setIdTournoi(int $idTournoi): self
-    {
-        $this->idTournoi = $idTournoi;
-
-        return $this;
-    }
-
-    public function getIdTeam(): ?int
-    {
-        return $this->idTeam;
-    }
-
-    public function setIdTeam(int $idTeam): self
-    {
-        $this->idTeam = $idTeam;
-
-        return $this;
-    }
 
     public function getScore(): ?float
     {
@@ -59,6 +37,30 @@ class Classement
     public function setScore(float $score): self
     {
         $this->score = $score;
+
+        return $this;
+    }
+
+    public function getIdtournoi(): ?Tournoi
+    {
+        return $this->idtournoi;
+    }
+
+    public function setIdtournoi(?Tournoi $idtournoi): self
+    {
+        $this->idtournoi = $idtournoi;
+
+        return $this;
+    }
+
+    public function getIdteam(): ?Team
+    {
+        return $this->idteam;
+    }
+
+    public function setIdteam(?Team $idteam): self
+    {
+        $this->idteam = $idteam;
 
         return $this;
     }
